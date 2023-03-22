@@ -16,14 +16,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    // Call 예상
+    // Call 예상 - @Configuration 없으면 bean = class hello.core.AppConfig
     // call AppConfig.memberService
     // call AppConfig.memberRepository
     // call AppConfig.memberRepository
     // call AppConfig.orderService
     // call AppConfig.memberRepository
 
-    // 실제로 돌려보니 - 스프링이 singleton 지원
+    // 실제로 돌려보니 - 스프링이 singleton 지원 - @Configuration 있어서
+    // bean = class hello.core.AppConfig$$EnhancerBySpringCGLIB$$4ff8daf5
     // call AppConfig.memberService
     // call AppConfig.memberRepository
     // call AppConfig.orderService
