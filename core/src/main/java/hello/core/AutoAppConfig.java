@@ -16,9 +16,10 @@ import org.springframework.context.annotation.FilterType;
 )
 
 public class AutoAppConfig {
-
+    /*
     @Bean(name = "memoryMemberRepository")  // 자동 빈 겹칠 때는 오류! 수동 빈 vs 자동 빈 만나면 수동 빈이 오버라이딩함.
     MemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
+    */
 }
