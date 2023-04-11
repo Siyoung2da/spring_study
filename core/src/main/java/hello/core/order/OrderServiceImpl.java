@@ -7,10 +7,12 @@ import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor    // final이 붙은 생성자 자동으로 만들어줌 cmd + fn(F12) 누르면 생성자 확인 가능.
+//@RequiredArgsConstructor    // final이 붙은 생성자 자동으로 만들어줌 cmd + fn(F12) 누르면 생성자 확인 가능.
 public class OrderServiceImpl implements OrderService {
 
     //    private final MemberRepository memberRepository = new MemoryMemberRepository();
@@ -31,12 +33,12 @@ public class OrderServiceImpl implements OrderService {
 //        this.discountPolicy = discountPolicy;
 //    }
 
-    // 생성자 주입, 1개만 있을 때는 @Autowired 사용 안해도 됨.
-//    @Autowired
-//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//    }
+//     생성자 주입, 1개만 있을 때는 @Autowired 사용 안해도 됨.
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
