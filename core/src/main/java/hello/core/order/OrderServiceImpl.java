@@ -17,7 +17,7 @@ public class OrderServiceImpl implements OrderService {
     //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
     // DIP, OCP 위반 - 추상(인터페이스)에만 의존해야하는데 구현에도 의존함
     private final MemberRepository memberRepository;   // 필드주입은 권장 안함. 사용하지 말 것.
-    private final DiscountPolicy discountPolicy;
+    private final DiscountPolicy discountPolicy;    // 오직 생성자 주입 방식만 final 사용 가능하다.
     // 인터페이스에만 의존하게 변경 (DIP) - but 돌아가지 않음.
 
     // 수정자(setter) 주입
