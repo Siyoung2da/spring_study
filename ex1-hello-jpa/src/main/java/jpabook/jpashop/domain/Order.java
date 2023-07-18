@@ -3,7 +3,7 @@ package jpabook.jpashop.domain;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+//@Entity
 @Table(name = "ORDERS")
 public class Order {
 
@@ -18,5 +18,6 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
 
 }
