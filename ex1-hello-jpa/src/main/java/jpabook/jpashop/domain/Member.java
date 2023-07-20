@@ -1,8 +1,10 @@
 package jpabook.jpashop.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-//@Entity
+@Entity
 public class Member {
 
     @Id
@@ -13,6 +15,9 @@ public class Member {
     private String city;
     private String street;
     private String zipcode;
+
+    @OneToMany(mappedBy = "member") // mappeBy = "member" 의 member는 Order에 있는 member이다. 연관관계 주인
+    private List<Order> orders = new ArrayList<>();
 
     public Long getId() {
         return id;
