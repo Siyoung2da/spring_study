@@ -1,5 +1,7 @@
 package hellojpa;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -20,14 +22,16 @@ public class JpaMain {
         try {
 
             Member member = new Member();
-            member.setUsername("user1");
-            member.setCreatedBy("kim");
-            member.setCreatedDate(LocalDateTime.now());
-
+            member.setUsername("hello");
             em.persist(member);
 
             em.flush();
             em.clear();
+
+            Member refMember = em.getReference(Member.class, member.getId());
+            System.out.println("refMember.getClass() = " + refMember.getClass()); // Proxy
+            Hibernate.initialize(refMember); // 강제 초기화
+
 
             tx.commit();
         } catch (Exception e) {
@@ -37,4 +41,5 @@ public class JpaMain {
         }
         emf.close();
     }
+
 }
