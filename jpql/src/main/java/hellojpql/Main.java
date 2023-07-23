@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class Main {
 
@@ -20,6 +21,17 @@ public class Main {
             Member member = new Member();
             member.setUsername("member1");
             em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            List<MemberDTO> result = em.createQuery("select new hellojpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
+                    .getResultList();
+
+            for (MemberDTO memberDTO : result) {
+                System.out.println("memberDTO.getUsername() = " + memberDTO.getUsername());
+                
+            }
 
             tx.commit();
         } catch (Exception e) {
