@@ -27,12 +27,7 @@ public class Main {
             em.flush();
             em.clear();
 
-            String query = "select " +
-                                    "case when m.age <= 10 then '학생요금' " +
-                                    "     when m.age >= 60 then '경로요금' " +
-                                    "     else '일반요금' " +
-                                    "end " +
-                            "from Member m";
+            String query = "select m.username from Team t join t.members m";
 
             List<String> resultList = em.createQuery(query, String.class)
                     .getResultList();
@@ -49,6 +44,13 @@ public class Main {
 //                    .setFirstResult(0)
 //                    .setMaxResults(10)
 //                    .getResultList();
+
+//            String query = "select " +
+//                    "case when m.age <= 10 then '학생요금' " +
+//                    "     when m.age >= 60 then '경로요금' " +
+//                    "     else '일반요금' " +
+//                    "end " +
+//                    "from Member m";
 
             tx.commit();
         } catch (Exception e) {
