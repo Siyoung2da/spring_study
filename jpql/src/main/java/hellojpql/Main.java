@@ -44,9 +44,12 @@ public class Main {
             em.flush();
             em.clear();
 
-            String query = "select m from Member m join fetch m.team";
+//            String query = "select m from Member m join fetch m.team";
+
+            String query = "select m from Member m where m = :member";
 
             List<Member> resultList = em.createQuery(query, Member.class)
+                    .setParameter("member", member3)
                     .getResultList();
             for (Member s : resultList) {
                 System.out.println("s = " + s + s.getTeam().getName());
