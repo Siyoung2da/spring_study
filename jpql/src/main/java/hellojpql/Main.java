@@ -18,19 +18,26 @@ public class Main {
         tx.begin();
         try {
 
-            Member member = new Member();
-            member.setUsername("member1");
-            em.persist(member);
-
+            for (int i=0;i<100;i++) {
+                Member member = new Member();
+                member.setUsername("member" + i);
+                member.setAge(i);
+                em.persist(member);
+            }
             em.flush();
             em.clear();
 
-            List<MemberDTO> result = em.createQuery("select new hellojpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
+//            List<MemberDTO> result = em.createQuery("select new hellojpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)
+//                    .getResultList();
+
+            List<Member> result = em.createQuery("select m from Member m order by m.age desc", Member.class)
+                    .setFirstResult(0)
+                    .setMaxResults(10)
                     .getResultList();
 
-            for (MemberDTO memberDTO : result) {
-                System.out.println("memberDTO.getUsername() = " + memberDTO.getUsername());
-                
+            System.out.println("result.size() = " + result.size());
+            for (Member member : result) {
+                System.out.println("member = " + member);
             }
 
             tx.commit();
