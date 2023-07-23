@@ -18,21 +18,38 @@ public class Main {
         tx.begin();
         try {
 
-            for (int i=0;i<100;i++) {
-                Member member = new Member();
-                member.setUsername("member" + i);
-                member.setAge(i);
-                em.persist(member);
-            }
+            Team teamA = new Team();
+            teamA.setName("팀A");
+            em.persist(teamA);
+
+            Team teamB = new Team();
+            teamB.setName("팀B");
+            em.persist(teamB);
+
+            Member member = new Member();
+            member.setUsername("회원1");
+            member.setTeam(teamA);
+            em.persist(member);
+
+            Member member2 = new Member();
+            member2.setUsername("회원2");
+            member2.setTeam(teamA);
+            em.persist(member2);
+
+            Member member3 = new Member();
+            member3.setUsername("회원3");
+            member3.setTeam(teamB);
+            em.persist(member3);
+
             em.flush();
             em.clear();
 
-            String query = "select m.username from Team t join t.members m";
+            String query = "select m from Member m join fetch m.team";
 
-            List<String> resultList = em.createQuery(query, String.class)
+            List<Member> resultList = em.createQuery(query, Member.class)
                     .getResultList();
-            for (String s : resultList) {
-                System.out.println("s = " + s);
+            for (Member s : resultList) {
+                System.out.println("s = " + s + s.getTeam().getName());
             }
 
 
