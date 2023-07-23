@@ -44,13 +44,18 @@ public class Main {
             em.flush();
             em.clear();
 
-            List<Member> resultList = em.createNamedQuery("Member.findByUserName", Member.class)
-                    .setParameter("username", "회원1")
-                    .getResultList();
+            int resultCount = em.createQuery("update Member m set m.age = 20")
+                    .executeUpdate();
+            System.out.println("resultCount = " + resultCount);
+            em.clear();
 
-            for (Member member : resultList) {
-                System.out.println("member = " + member);
-            }
+//            List<Member> resultList = em.createNamedQuery("Member.findByUserName", Member.class)
+//                    .setParameter("username", "회원1")
+//                    .getResultList();
+//
+//            for (Member member : resultList) {
+//                System.out.println("member = " + member);
+//            }
 
 //            String query = "select m from Member m join fetch m.team";
 //            String query = "select m from Member m where m = :member";
