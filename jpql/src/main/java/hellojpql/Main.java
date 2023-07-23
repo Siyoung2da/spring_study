@@ -26,10 +26,10 @@ public class Main {
             teamB.setName("팀B");
             em.persist(teamB);
 
-            Member member = new Member();
-            member.setUsername("회원1");
-            member.setTeam(teamA);
-            em.persist(member);
+            Member member1 = new Member();
+            member1.setUsername("회원1");
+            member1.setTeam(teamA);
+            em.persist(member1);
 
             Member member2 = new Member();
             member2.setUsername("회원2");
@@ -44,16 +44,23 @@ public class Main {
             em.flush();
             em.clear();
 
-//            String query = "select m from Member m join fetch m.team";
-
-            String query = "select m from Member m where m = :member";
-
-            List<Member> resultList = em.createQuery(query, Member.class)
-                    .setParameter("member", member3)
+            List<Member> resultList = em.createNamedQuery("Member.findByUserName", Member.class)
+                    .setParameter("username", "회원1")
                     .getResultList();
-            for (Member s : resultList) {
-                System.out.println("s = " + s + s.getTeam().getName());
+
+            for (Member member : resultList) {
+                System.out.println("member = " + member);
             }
+
+//            String query = "select m from Member m join fetch m.team";
+//            String query = "select m from Member m where m = :member";
+//
+//            List<Member> resultList = em.createQuery(query, Member.class)
+//                    .setParameter("member", member3)
+//                    .getResultList();
+//            for (Member s : resultList) {
+//                System.out.println("s = " + s + s.getTeam().getName());
+//            }
 
 
 //            List<MemberDTO> result = em.createQuery("select new hellojpql.MemberDTO(m.username, m.age) from Member m", MemberDTO.class)

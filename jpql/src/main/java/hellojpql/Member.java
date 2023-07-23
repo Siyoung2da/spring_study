@@ -3,6 +3,10 @@ package hellojpql;
 import javax.persistence.*;
 
 @Entity
+@NamedQuery(
+        name = "Member.findByUserName",
+        query = "select m from Member m where m.username = :username"
+)
 public class Member {
 
     @Id @GeneratedValue
